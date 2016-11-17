@@ -12,5 +12,8 @@
     "Javascript"
   ],
   "author": "Sean Avery Pollock",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^1.13.3"
+  }
 }
