@@ -1,0 +1,16 @@
+{
+  "name": "tx_tribe_exchange",
+  "version": "1.0.0",
+  "description": "Decentralized Exchange for Startups",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Ethereum",
+    "Solidity",
+    "Javascript"
+  ],
+  "author": "Sean Avery Pollock",
+  "license": "ISC"
+}
