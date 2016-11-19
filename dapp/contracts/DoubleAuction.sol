@@ -88,12 +88,15 @@ contract ExchangeTX {
     }
 
     function matchAsk(uint ask_index, uint bid_index) returns (bool) {
-        if(BidLedger[bid_index].amount == 0) {
+        if(AskLedger[ask_index].amount <= 0) {
             return true;
         }
         AskLedger[ask_index].amount--;
         BidLedger[bid_index].amount--;
+        if(BidLedger[bid_index].amount <= 0) {
+            bid_index--;
+            return(matchAsk(ask_index, bid_index));
+        }
         return(matchAsk(ask_index, bid_index));
     }
-
 }
