@@ -38,7 +38,7 @@ contract ExchangeTX {
                     tempLedger[j] = BidLedger[j+i];
                 }
                 BidLedger[i] = b;
-                BidLedger.length += 1;
+                BidLedger.length ++;
                 for(uint k = 0; k < tempLedger.length; k++) {
                     BidLedger[k+i+1] = tempLedger[k];
                 }
@@ -69,6 +69,18 @@ contract ExchangeTX {
         }
         AskLedger.push(a);
         return true;
+    }
+
+    function matchBid(uint bid_index, uint ask_index) returns (bool) {
+        if(BidLedger[bid_index].amount <= 0) {
+            return true;
+        }
+        BidLedger[bid_index].amount--;
+        AskLedger[ask_index].amount--;
+        if(AskLedger[ask_index].amount <= 0) {
+            return matchBid(bid_index, ask_index--);
+        }
+        return matchBid(bid_index, ask_index);
     }
 
 }
