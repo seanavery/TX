@@ -88,7 +88,7 @@ contract ExchangeTX {
     }
 
     function matchAsk(uint ask_index, uint bid_index) returns (bool) {
-        if(AskLedger[ask_index].amount <= 0) {
+        if(AskLedger[ask_index].amount <= 0 || AskLedger[ask_index].price > BidLedger[bid_index].price) {
             return true;
         }
         AskLedger[ask_index].amount--;
@@ -99,4 +99,5 @@ contract ExchangeTX {
         }
         return(matchAsk(ask_index, bid_index));
     }
+
 }
