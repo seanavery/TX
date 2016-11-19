@@ -41,7 +41,16 @@ contract ExchangeTX {
         a.amount = _amount;
         for(uint i = 0; i < AskLedger.length; i++) {
             if(AskLedger[i].price < _price) {
-                return false;
+                Ask[] memory tempLedger = new Ask[](AskLedger.length - i);
+                for(uint j = 0; j < tempLedger.length; j++) {
+                    tempLedger[j] = AskLedger[j+i];
+                }
+                AskLedger[i] = a;
+                AskLedger.length += 1;
+                for(uint k = 0; k < tempLedger.length; k++) {
+                    AskLedger[k+i+1] = tempLedger[k];
+                }
+                return true;
             }
         }
         AskLedger.push(a);
