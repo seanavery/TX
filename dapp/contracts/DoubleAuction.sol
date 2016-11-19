@@ -99,5 +99,4 @@ contract ExchangeTX {
         }
         return(matchAsk(ask_index, bid_index));
     }
-
 }
