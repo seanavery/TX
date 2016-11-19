@@ -13,7 +13,13 @@ contract ExchangeTX {
     Bid[] public BidLedger;
     Ask[] public AskLedger;
 
-    function submitBid(uint _price, uint _amount) returns (bool) {
+    modifier bidInMarket(uint _price) { // Modifier
+        if (_price < AskLedger[AskLedger.length-1].price) throw;
+        _;
+    }
+
+
+    function submitBid(uint _price, uint _amount) bidInMarket(_price) returns (bool) {
         Bid memory b;
         b.price = _price;
         b.amount = _amount;
