@@ -14,10 +14,16 @@ contract ExchangeTX {
     Ask[] public AskLedger;
 
     modifier bidInMarket(uint _price) { // Modifier
-        if (_price < AskLedger[AskLedger.length-1].price) throw;
+        if (AskLedger.length > 0) {
+            if (_price < AskLedger[AskLedger.length-1].price ) throw;
+        }
         _;
     }
 
+    modifier askInMarket(uint _price) {
+        if (_price > BidLedger[BidLedger.length-1].price) throw;
+        _;
+    }
 
     function submitBid(uint _price, uint _amount) bidInMarket(_price) returns (bool) {
         Bid memory b;
@@ -41,7 +47,7 @@ contract ExchangeTX {
         return true;
     }
 
-    function submitAsk(uint _price, uint _amount) returns (bool) {
+    function submitAsk(uint _price, uint _amount) askInMarket(_price) returns (bool) {
         Ask memory a;
         a.price = _price;
         a.amount = _amount;
