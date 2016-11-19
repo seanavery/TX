@@ -21,7 +21,9 @@ contract ExchangeTX {
     }
 
     modifier askInMarket(uint _price) {
-        if (_price > BidLedger[BidLedger.length-1].price) throw;
+        if (BidLedger.length > 0) {
+            if (_price > BidLedger[BidLedger.length-1].price) throw;
+        }
         _;
     }
 
