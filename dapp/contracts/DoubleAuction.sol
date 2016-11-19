@@ -77,8 +77,12 @@ contract ExchangeTX {
         }
         BidLedger[bid_index].amount--;
         AskLedger[ask_index].amount--;
+        if(AskLedger[ask_index].amount == 0 && ask_index == 0) {
+            return true;
+        }
         if(AskLedger[ask_index].amount <= 0) {
-            return matchBid(bid_index, ask_index--);
+            ask_index--;
+            return matchBid(bid_index, ask_index);
         }
         return matchBid(bid_index, ask_index);
     }
