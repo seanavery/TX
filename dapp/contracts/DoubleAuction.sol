@@ -77,10 +77,10 @@ contract ExchangeTX {
         }
         BidLedger[bid_index].amount--;
         AskLedger[ask_index].amount--;
-        if(AskLedger[ask_index].amount == 0 && ask_index == 0) {
-            return true;
-        }
-        if(AskLedger[ask_index].amount <= 0) {
+        if(AskLedger[ask_index].amount <= 0 ) {
+            if(ask_index <= 0) {
+                return true;
+            }
             ask_index--;
             return matchBid(bid_index, ask_index);
         }
@@ -94,9 +94,13 @@ contract ExchangeTX {
         AskLedger[ask_index].amount--;
         BidLedger[bid_index].amount--;
         if(BidLedger[bid_index].amount <= 0) {
+            if (bid_index <= 0) {
+                return true;
+            }
             bid_index--;
             return(matchAsk(ask_index, bid_index));
         }
         return(matchAsk(ask_index, bid_index));
     }
+
 }
