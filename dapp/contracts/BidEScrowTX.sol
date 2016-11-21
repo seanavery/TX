@@ -9,10 +9,12 @@ contract BidEscrowTX {
     }
 
     Bid public bid;
+    address public exchange_address;
 
-    function BidEscrowTX(uint _price, uint _amount) {
+    function BidEscrowTX(uint _price, uint _amount, address _exchange) {
         bid.price = _price;
         bid.amount = _amount;
+        exchange_address = _exchange;
     }
 
     modifier sufficientFunds() {
@@ -21,7 +23,7 @@ contract BidEscrowTX {
     }
 
     function submitToExchange() returns (bool) {
-        ExchangeTX e = ExchangeTX(0x692a70d2e424a56d2c6c27aa97d1a86395877b3a);
+        ExchangeTX e = ExchangeTX(exchange_address);
         e.submitBid(bid.price, bid.amount);
         return true;
     }
