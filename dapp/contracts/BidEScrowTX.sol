@@ -1,51 +1,28 @@
-pragma solidity ^0.4.3;
+pragma solidity ^0.4.0;
 
-import "ExchangeTX.sol";
+import 'ExchangeTX.sol';
 
-contract BidEscrow {
-
+contract BidEscrowTX {
     struct Bid {
-        address bidder;
-        uint blockstamp;
-        uint amount;
         uint price;
+        uint amount;
     }
 
-    Bid public BidInfo;
+    Bid public bid;
 
-    bool Response;
-
-    function BidEscrow(uint _amount, uint _price) {
-        BidInfo.bidder = msg.sender;
-        BidInfo.blockstamp = now;
-        BidInfo.amount = _amount;
-        BidInfo.price = _price;
-
-        Response = false;
+    function BidEscrowTX(uint _price, uint _amount) {
+        bid.price = _price;
+        bid.amount = _amount;
     }
 
     modifier sufficientFunds() {
-        if(msg.value < BidInfo.amount * BidInfo.price) throw;
+        if(msg.value < bid.price * bid.amount) throw;
         _;
     }
 
-    function withdrawFunds() {
-        if(Response) {
-            //send ether to Bid.bidder
-            BidInfo.bidder.send(this.balance);
-        }
-    }
-
-
-    function submitToExchange() sufficientFunds() returns(bool) {
+    function submitToExchange() returns (bool) {
         ExchangeTX e = ExchangeTX(0x692a70d2e424a56d2c6c27aa97d1a86395877b3a);
-        e.submitBid(BidInfo.price, BidInfo.amount);
-        return true;
-    }
-
-    function sendFunds(address _seller_address) returns(bool) {
-        _seller_address.send(this.balance);
-        Response = true;
+        e.submitBid(bid.price, bid.amount);
         return true;
     }
 }
