@@ -1,20 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @SeanAvery
- Unwatch 1
-  Star 0
- Fork 0 SeanAvery/TribeExchangeTX
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Pulse  Graphs  Settings
-Branch: master Find file Copy pathTribeExchangeTX/contractsTX/BidEscrowTX.sol
-4786f06  19 days ago
-@SeanAvery SeanAvery sendFunds function to matched sellers
-1 contributor
-RawBlameHistory
-52 lines (39 sloc)  1.09 KB
 pragma solidity ^0.4.3;
 
 import "ExchangeTX.sol";
@@ -66,5 +49,3 @@ contract BidEscrow {
         return true;
     }
 }
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status Help

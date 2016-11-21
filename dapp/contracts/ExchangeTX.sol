@@ -146,4 +146,4 @@ contract ExchangeTX {
         Bids.length = i + 1;
         return true;
     }
-}
+} 
