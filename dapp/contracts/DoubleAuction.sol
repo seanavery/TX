@@ -103,4 +103,12 @@ contract ExchangeTX {
         return(matchAsk(ask_index, bid_index));
     }
 
+    function cleanAskLedger() {
+        for(uint i = AskLedger.length - 1; i >= 0; i--) {
+            if(AskLedger[i].amount > 0) {
+                AskLedger.length = i + 1;
+            }
+        }
+    }
+
 }
